@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div class="wrapper">
+
+    <header>
+
+        <div class="container">
+        <button class="hdbtn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <h3 class="p-now">Playing Now</h3>
+        <button class="hdbtn">
+            <i class="fa-solid fa-arrow-left"></i>
+
+        </button>
+        </div>
+
+
+        <div class="player">
+            <div class="img-area">
+                <img src="https://tse3.mm.bing.net/th?id=OIP.6aZNH6rHgHid-1Y5lkOLkAHaIC&pid=Api&P=0&h=180"  alt="">
+            </div>
+
+            <div class="song-details">
+                <h1 class="name">Animation</h1>
+                <h3 class="artist">coding</h3>
+            </div>
+
+            <div class="audioC">
+                <div class="song-timer">
+                    <span class="current-time">0:00</span>
+                    <span class="max-duration">0:00</span>
+                </div>
+                <div class="progress-area">
+                    <div class="progress-bar">
+                        <audio id="main-audio" src="websevelopment/Tuj me rab dikhta he.mp3"></audio>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btnC" id="prev">
+                    <i class="fa-solid fa-circle-arrow-left"></i>
+                </button>
+                <button class="play-pause btnC" >
+                    <i class="fa-solid fa-play"></i>
+                </button>
+                <button class="btnC" id="next">
+                    <i class="fa-solid fa-circle-arrow-right"></i>
+
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    </header>
+
+    <script>
+   document.addEventListener('DOMContentLoaded', () => {
+    const image = document.querySelector('.img-area img'); // Select the img inside .img-area
+
+    const songName = document.querySelector('.name');
+    const artistName = document.querySelector('.artist');
+    const mainAudio = document.getElementById('main-audio');
+    const playPauseBtn = document.querySelector('.play-pause i');
+    const currentTimeElem = document.querySelector('.current-time');
+    const maxDurationElem = document.querySelector('.max-duration');
+
+    let currentSongIndex = 0;
+    let songs = [];
+
+    // Fetch the songs data
+    fetch('songs.json')
+        .then(response => response.json())
+        .then(data => {
+            songs = data;
+            loadSong(songs[currentSongIndex]);
+        });
+
+    // Load song details into the player
+    function loadSong(song) {
+        image.src = song.image; // Update the image src based on the song data
+        songName.textContent = song.name;
+        artistName.textContent = song.artist;
+        mainAudio.src = song.url;
+
+        // Reset the play/pause icon to play
+        playPauseBtn.classList.remove('fa-pause');
+        playPauseBtn.classList.add('fa-play');
+    }
+
+    // Add the loadedmetadata event listener once
+    mainAudio.addEventListener('loadedmetadata', () => {
+        maxDurationElem.textContent = formatTime(mainAudio.duration);
+    });
+
+    // Play or pause the song
+    document.querySelector('.play-pause').addEventListener('click', () => {
+        if (mainAudio.paused || mainAudio.currentTime <= 0) {
+            mainAudio.play();
+            playPauseBtn.classList.remove('fa-play');
+            playPauseBtn.classList.add('fa-pause');
+        } else {
+            mainAudio.pause();
+            playPauseBtn.classList.remove('fa-pause');
+            playPauseBtn.classList.add('fa-play');
+        }
+    });
+
+    // Play the next song
+    document.getElementById('next').addEventListener('click', () => {
+        currentSongIndex = (currentSongIndex + 1) % songs.length;
+        loadSong(songs[currentSongIndex]);
+        mainAudio.play();
+        playPauseBtn.classList.remove('fa-play');
+        playPauseBtn.classList.add('fa-pause');
+    });
+
+    // Play the previous song
+    document.getElementById('prev').addEventListener('click', () => {
+        currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+        loadSong(songs[currentSongIndex]);
+        mainAudio.play();
+        playPauseBtn.classList.remove('fa-play');
+        playPauseBtn.classList.add('fa-pause');
+    });
+
+    // Update the current time of the song and the progress bar
+    mainAudio.addEventListener('timeupdate', () => {
+        currentTimeElem.textContent = formatTime(mainAudio.currentTime);
+
+        // Update progress bar
+        const progressBar = document.querySelector('.progress-bar');
+        if (progressBar) {
+            const progressPercent = (mainAudio.currentTime / mainAudio.duration) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+        }
+    });
+
+    // Format time in mm:ss
+    function formatTime(time) {
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }
+});
+
+
+
+
+    </script>
+
+
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</body>
+</html>
