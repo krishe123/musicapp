@@ -6,6 +6,55 @@
          "image": "rab.jpg"
     },
     {
+        "name": "heeriye",
+        "artist": "arjit singh",
+        "url": "Tuj me rab dikhta he.mp3",
+         "image": "heeriye.jpg"
+    },
+    {
+        "name": "galiyaan",
+        "artist": "ankit tiwari",
+        "url": "Tuj me rab dikhta he.mp3",
+         "image": "galiyan.jpg"
+    },
+    {
+        "name": "akhiya gulab",
+        "artist": "mitraz",
+        "url": "Tuj me rab dikhta he.mp3",
+         "image": "Akhiya_gulab.jpg"
+    },
+    {
+        "name": "jeene laga hu",
+        "artist": "sachin-jigar",
+        "url": "Tuj me rab dikhta he.mp3",
+         "image": "jeene_laga_hu.jpg"
+    },
+    {
+        "name": "nazar na laga jaye sanam",
+        "artist": "sachin-jigar",
+        "url": "Tuj me rab dikhta he.mp3",
+         "image": "nazar_na_lag.jpg"
+    },
+    {
+        "name": "subharambh",
+        "artist": "amit trivedi",
+        "url": "Tuj me rab dikhta he.mp3",
+         "image": "subharambh.jpg"
+    },
+    {
+        "name": "titali",
+        "artist": "vishal & shekhar",
+        "url": "Tuj me rab dikhta he.mp3",
+         "image": "titali.jpeg"
+    },
+    {
+        "name": "tum hi ho",
+        "artist": "arjit singh",
+        "url": "Tuj me rab dikhta he.mp3",
+         "image": "tum_hi_ho.jpeg"
+    },
+   
+    {
         "name": "pal pal",
         "artist": "arjit singh",
         "url": "pal pal song.mp3",
